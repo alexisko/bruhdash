@@ -44,12 +44,9 @@ global.bruhdash = {
   // returns an array with all falsey values removed
   compact: function(array) {
     var trueArr = [];
-    var falseVals = [false, null, 0, '', NaN];
     for(var i = 0; i < array.length; i++) {
-      for(var j = 0; j < falseVals.length; j++) {
-        if(array[i] !== falseVals[j]) {
-          trueArr.push(array[i]);
-        }
+      if(array[i]) {
+        trueArr.push(array[i]);
       }
     }
     return trueArr;
@@ -68,29 +65,54 @@ global.bruhdash = {
   drop: function(array, dropNum){
     var dropArr = [];
 
-    if(dropNum === null) {
-      for(var i = 1; i < array.length; i++) {
-        dropArr.push(array[i]);
-      }
-      return dropArr;
-    } else if (dropNum === 0) {
+    if(dropNum === 0) { //drop === 0, return array
       return array;
-    } else {
+    } else if (dropNum) { //drop is specified
       for(var j = dropNum; j < array.length; j++) {
         dropArr.push(array[j]);
       }
+      return dropArr;
     }
-    return array;
+    //no amount to drop is specified
+    for(var i = 1; i < array.length; i++) {
+      dropArr.push(array[i]);
+    }
+    return dropArr;
   },
 
   // returns a slice of array with n elements dropped from the end
-  dropRight: function() {
+  dropRight: function(array, dropNum) {
+    var dropArr = [];
+    if(dropNum === 0) {
+      return array;
+    } else if (dropNum) {
+      for(var j = 0; j < array.length-dropNum; j++) {
+        dropArr.push(array[j]);
+      }
+      return dropArr;
+    }
 
+    for(var i = 0; i < array.length-1; i++) {
+      dropArr.push(array[i]);
+    }
+    return dropArr;
   },
 
   // creates a slice of an array with n elements taken from the beginning
-  take: function () {
-
+  take: function (array, takeNum) {
+    var takeArr = [];
+    if(takeNum === 0) {
+      return [];
+    } else if(takeNum > array.length) {
+      return array;
+    } else if(takeNum) {
+      for(var i = 0; i < takeNum; i++) {
+        takeArr.push(array[i]);
+      }
+      return takeArr;
+    }
+    takeArr.push(array[0]);
+    return takeArr;
   },
 
   // creates a slice of an array with n elements taken from the end
