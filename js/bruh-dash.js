@@ -3,43 +3,84 @@ var global = window || GLOBAL;
 global.bruhdash = {
 
   // returns the first element of an array
-  first: function () {
-      
+  first: function (array) {
+    return array[0];
   },
 
   // returns the last element of an array
-  last: function () {
-
+  last: function (array) {
+    return array[array.length-1];
   },
 
   // returns the index of the first matching element from left to right
-  indexOf: function () {
-
+  indexOf: function (array, element) {
+    for(var i = 0; i < array.length; i++) {
+      if(array[i] === element) {
+        return i;
+      }
+    }
+    return -1;
   },
 
   // returns the index of the first matching element from left to right
-  lastIndexof: function () {
-
+  lastIndexOf: function (array, element) {
+    for(var i = array.length; i > 0; i--) {
+      if(array[i] === element) {
+        return i;
+      }
+    }
+    return -1;
   },
 
   // returns an array with all elements except for the last element
-  initial: function () {
-
+  initial: function (array) {
+    var newArr = [];
+    for(var i = 0; i < array.length-1; i++) {
+      newArr.push(array[i]);
+    }
+    return newArr;
   },
   
   // returns an array with all falsey values removed
-  compact: function() {
-
+  compact: function(array) {
+    var trueArr = [];
+    var falseVals = [false, null, 0, '', NaN];
+    for(var i = 0; i < array.length; i++) {
+      for(var j = 0; j < falseVals.length; j++) {
+        if(array[i] !== falseVals[j]) {
+          trueArr.push(array[i]);
+        }
+      }
+    }
+    return trueArr;
   },
 
   // creates a slice of an array from the start index up to but not including the end index
-  slice: function () {
-
+  slice: function (array, start, end) {
+    var arrSlice = [];
+    for(var i = start; i < end; i++) {
+      arrSlice.push(array[i]);
+    }
+    return arrSlice;
   },
 
   // returns a slice of array with n elements dropped from the beignning
-  drop: function(){
+  drop: function(array, dropNum){
+    var dropArr = [];
 
+    if(dropNum === null) {
+      for(var i = 1; i < array.length; i++) {
+        dropArr.push(array[i]);
+      }
+      return dropArr;
+    } else if (dropNum === 0) {
+      return array;
+    } else {
+      for(var j = dropNum; j < array.length; j++) {
+        dropArr.push(array[j]);
+      }
+    }
+    return array;
   },
 
   // returns a slice of array with n elements dropped from the end
