@@ -186,24 +186,75 @@ global.bruhdash = {
    *******************/ 
 
   // creates an array of grouped elements
-  zip: function () {
-
+  zip: function (array1, array2) {
+    var grpdArr = [];
+    var tempArr = [];
+    if(array1.length === array2.length) {
+      for(var i = 0; i < array1.length; i++) {
+        tempArr.push(array1[i]);
+        tempArr.push(array2[i]);
+        grpdArr.push(tempArr);
+        tempArr = [];
+      }
+    }
+    return grpdArr;
   },
 
   // creates an array of grouped elements in their pre-zip configuration
-  unzip: function () {
-
+  unzip: function (array) {
+    var grpdArr = [];
+    var array1 = [];
+    var array2 = [];
+    for(var i = 0; i < array.length; i++) {
+      array1.push(array[i][0]);
+      array2.push(array[i][1]);
+    }
+    grpdArr.push(array1);
+    grpdArr.push(array2);
+    return grpdArr;
   },
 
   // creates an array of elements into groups of length of specified size
-  chunk: function(){
-
+  chunk: function(array, size){
+    var arrChunk = [];
+    var tempArr = [];
+    var count = 0;
+    if(size === 0) {
+      return [];
+    } else if(array === undefined || array.length === 0) {
+      return [];
+    } else if(array.length === size) {
+      arrChunk.push(array);
+      return arrChunk;
+    } else if(array.length < size) {
+      arrChunk.push(array);
+      return arrChunk;
+    } else {
+      for(var i = 0; i < array.length; i++) {
+        tempArr.push(array[i]);
+        count++;
+        if(count === size) {
+          arrChunk.push(tempArr);
+          count = 0;
+          tempArr = [];
+        } else if (i === array.length-1) {
+          arrChunk.push(tempArr);
+        }
+      }
+      return arrChunk;
+    }
+    return arrChunk;
   },
 
   // iterates over elements of a collection and invokes iteratee for each element
   // Note: this should work for arrays and objects
-  forEach: function() {
-
+  forEach: function(array, iteratee) {
+    //var result = [];
+    //var value;
+    //for(value of array) {
+      //result.push(value);
+    //}
+    //return result;
   },
 
   // creates an array of values by running each element in collection thru the iteratee
