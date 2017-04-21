@@ -116,19 +116,41 @@ global.bruhdash = {
   },
 
   // creates a slice of an array with n elements taken from the end
-  takeRight: function () {
-
+  takeRight: function (array, takeNum) {
+    var takeArr = [];
+    if(takeNum === 0) {
+      return [];
+    } else if(takeNum > array.length) {
+      return array;
+    } else if(takeNum) {
+      for(var i = takeNum-1; i < array.length; i++) {
+        takeArr.push(array[i]);
+      }
+      return takeArr;
+    }
+    takeArr.push(array[array.length-1]);
+    return takeArr;
   },
 
   // fills elements of array with specified value from the start index
   // up to but not including the end index
-  fill: function() {
-
+  fill: function(array, value, start, end) {
+    if(start && end) {
+      return array.fill(value, start, end);
+    }
+    return array.fill(value);
   },
 
   // removes all given values from an array
-  pull: function () {
-
+  pull: function (array, values) {
+    var loc;
+        for(var i = 0; i < values.length; i++) {
+          loc = array.indexOf(values[i]);
+          if(loc >= 0) {
+            array.splice(loc, 1);
+          }
+        }
+    return array;
   },
 
   // removes elements of an array corresponding to the given indices
@@ -137,13 +159,26 @@ global.bruhdash = {
   },
 
   // creates an array excluding all the specified values
-  without: function() {
-
+  without: function(array, values) {
+    var loc;
+        for(var i = 0; i < values.length; i++) {
+          loc = array.indexOf(values[i]);
+          if(loc >= 0) {
+            array.splice(loc, 1);
+          }
+        }
+    return array;
   },
 
   // returns an array with specified values excluded
-  difference: function() {
-
+  difference: function(array1, array2) {
+    var diffNums = [];
+    for(var i = 0; i < array1.length; i++) {
+      if(array2.indexOf(array1[i]) === -1) {
+        diffNums.push(array1[i]);
+      }
+    }
+    return diffNums;
   },
 
   /*******************
